@@ -1,0 +1,234 @@
+{
+  "agency": {
+    "name": "CoolBB",
+    "tagline": "多学科开发团队——涵盖 AI、区块链、游戏、SaaS 与 Web3。我们打磨概念、设计架构，交付可上线的生产级产品。",
+    "builtBy": "由 CoolBB 打造",
+    "contactX": "X",
+    "website": "coolbb.site"
+  },
+  "product": {
+    "name": "流动性深度扫描器"
+  },
+  "nav": {
+    "brand": "CoolBB",
+    "home": "首页",
+    "why": "为何重要",
+    "roadmap": "路线图",
+    "methodology": "方法论",
+    "scanner": "扫描器",
+    "calculator": "计算器"
+  },
+  "common": {
+    "provenance": "测量于 2026年9月13日，美股休市期间 · Jupiter 路由报价",
+    "disclaimer": "仅供研究使用，不构成投资建议。可执行报价反映探测时刻的路由状态，可能随时变化。",
+    "openScanner": "打开扫描器",
+    "readWhy": "了解为何重要",
+    "viewRoadmap": "查看路线图",
+    "yes": "是",
+    "no": "否",
+    "loading": "加载中…",
+    "apiUnavailable": "API 不可用"
+  },
+  "home": {
+    "kicker": "CoolBB 产品",
+    "title": "你真的能以标价退出吗？",
+    "subtitle": "Solana 代币化股票与股票配对发行项目的可执行现金退出容量——实测，而非估算。",
+    "productLine": "流动性深度扫描器——Solana 代币化股票的可执行退出容量测量。",
+    "stat1Label": "已探测资产",
+    "stat1Value": "18 只 xStock",
+    "stat2Label": "STRCx 断崖",
+    "stat2Value": "$150k → $0.04",
+    "stat3Label": "STONK $1M 退出",
+    "stat3Value": "仅回收 85%",
+    "whatTitle": "这是什么",
+    "whatBody": "一个托管探测引擎，向 Jupiter 请求不同规模的真实卖出报价，然后评分你实际能收到多少 USDC，并与印刷市值对比。它能检测出 TVL 仪表盘无法看到的路由断崖、无路由壁垒和约束环节。",
+    "ctaScanner": "浏览实时排行榜",
+    "ctaWhy": "查看实测证据"
+  },
+  "why": {
+    "title": "为何需要这个工具",
+    "subtitle": "六项来自实测的发现——不是理论。",
+    "sections": [
+      {
+        "title": "标价不等于退出价",
+        "body": "STONK 链上市值显示 $2.15 亿。$100 万现金退出仅回收 85%。印刷估值与可执行退出容量是两个不同的数字——差距可能极大。"
+      },
+      {
+        "title": "所有人都在用的指标是错的",
+        "body": "池子 TVL ÷ 市值与实测退出成本的相关性仅为 ρ = −0.66。绝对池 TVL 达到 ρ = −0.92。按估值归一化会主动破坏信号。SPYx 按 TVL/市值比率排名最差（5.3%），但 $10 万退出仅 9 个基点滑点。"
+      },
+      {
+        "title": "断崖对所有现有仪表盘不可见",
+        "body": "STRCx 在 $15 万时正常执行，$20 万时因路由切换仅返回每代币 $0.04。TVL、成交量和价格均未变化。只有按规模探测报价才能揭示这一点。"
+      },
+      {
+        "title": "硬壁垒比大滑点数字更重要",
+        "body": "18 只探测资产中有 6 只在 $25 万时无路由。FTR 在 $2.5 万以上即失败。无路由上限是比任何滑点百分比更硬的容量限制。"
+      },
+      {
+        "title": "你可能并未持有你以为的资产",
+        "body": "搜索 HOODx 返回约 20 个代币。其中一个将真实铸币地址嵌入自己的名称字段以绕过字符串匹配。铸币地址级认证是前提，而非功能。"
+      },
+      {
+        "title": "报价深度不等于承诺深度",
+        "body": "蓝筹资产的大部分良好深度来自 RFQ 做市商（Riptide、Byreal、AlphaQ），它们在压力下可以精确撤回流动性。扫描器单独标记 RFQ 占比，而非合并为一个深度数字。"
+      }
+    ]
+  },
+  "roadmap": {
+    "title": "路线图",
+    "subtitle": "从 Solana 测量到多场所退出情报。",
+    "legend": {
+      "complete": "已交付",
+      "active": "进行中",
+      "planned": "计划中"
+    },
+    "stages": [
+      {
+        "id": "shipped",
+        "status": "complete",
+        "shortLabel": "Solana",
+        "title": "已交付 — Solana",
+        "items": [
+          "Jupiter 报价探测引擎：微报价基准 + 7 档卖出阶梯",
+          "24 只发行方验证 xStock + 约 395 个股票配对发行（StonkFun 注册表）",
+          "退出容量评分：断崖、无路由上限、约束环节检测、A–F 评级",
+          "铸币地址注册表与仿冒检测",
+          "分层调度器与月度 Jupiter 积分预算守卫",
+          "REST API + 扫描器仪表盘"
+        ]
+      },
+      {
+        "id": "solana-next",
+        "status": "active",
+        "shortLabel": "深化",
+        "title": "下一步 — Solana 深化",
+        "items": [
+          "赎回通道建模：即时退出成本 vs 净值赎回成本及所需时间（Ondo 24/7 铸造/赎回，Backpack 1:1）",
+          "买入阶梯以暴露进出场不对称性",
+          "工作日 vs 周末深度衰减作为公开指标",
+          "RFQ 与 AMM 深度分拆展示"
+        ]
+      },
+      {
+        "id": "robinhood",
+        "status": "planned",
+        "shortLabel": "Robinhood",
+        "title": "Robinhood Chain 扩展",
+        "items": [
+          "第二场所适配器：Robinhood Chain 上的 Uniswap（链 ID 4663），UniversalRouter 0x8876…c0904，路由 v2.1.1",
+          "现金端为 USDG 而非 USDC——设置中需按场所配置现金铸币",
+          "通过 Switch 聚合器交叉验证（14 个适配器：Uniswap v2/v3/v4、PancakeSwap、SushiSwap、RobinSwap）",
+          "uiMultiplier 校正：Robinhood 股票代币的原始 ERC-20 余额隐藏累计总回报",
+          "Robinhood 价格 API 提供真实买卖价——可测量相对链上价格的溢价/折价",
+          "发行方端点的交易暂停与公司行为感知",
+          "风险区分：Robinhood 股票代币为债务证券（发行人信用风险）vs xStock 1:1 背书索赔",
+          "工程注意：Robinhood Chain 分叉 Uniswap v4 交换结构体增加 minHopPriceX36 字段——仅报价探测可规避"
+        ]
+      },
+      {
+        "id": "beyond",
+        "status": "planned",
+        "shortLabel": "更远期",
+        "title": "更远期",
+        "items": [
+          "跨场所最优退出路由：同一股票在 Solana xStock、Backpack、Ondo 和 Robinhood 股票代币间的比较",
+          "现货退出受阻时，股票永续合约作为对冲替代",
+          "RFQ 撤回压力分析与历史断崖复现",
+          "公开发布可复现探测记录（开放方法论）",
+          "告警、嵌入式组件与 API 分层"
+        ]
+      }
+    ]
+  },
+  "methodology": {
+    "title": "测量方法",
+    "subtitle": "开放、带时间戳、可复现——不是黑箱评分。",
+    "steps": [
+      {
+        "title": "微报价基准",
+        "body": "$200 卖出报价建立执行价格基准。所有阶梯档位测量相对于此基准的影响，而非外部预言机价格。这将规模相关滑点与相对参考价的溢价/折价分开。"
+      },
+      {
+        "title": "卖出阶梯",
+        "body": "七个名义金额：$1k、$10k、$50k、$100k、$250k、$500k、$1M。每个档位请求 Jupiter 卖出报价（代币 → USDC），取 3 次样本的中位数。"
+      },
+      {
+        "title": "断崖二分",
+        "body": "当相邻档位显示 >15% 效率下降且路由组成变化时，在两者之间二分以精确定位断崖边界。"
+      },
+      {
+        "title": "评分",
+        "body": "通过 log-linear 插值计算 99%/95%/90% 阈值下的退出容量。无路由上限、市值/退出比率、RFQ 依赖度、断崖检测和 A–F 字母评级。"
+      },
+      {
+        "title": "已知缺陷防护",
+        "body": "小数位始终来自 Jupiter price/v3 API——绝不假设。拒绝平坦但有偏移的曲线（外部价格基准错误）。回归测试锁定 SPYx、STONK、STRCx 断崖和 FTR 无路由。"
+      }
+    ],
+    "disclaimer": "本工具测量探测时刻的可执行路由报价。它不预测未来流动性、保证执行或构成投资建议。历史探测结果不保证未来退出容量。"
+  },
+  "scanner": {
+    "leaderboardTitle": "退出风险排行榜",
+    "leaderboardSubtitle": "按市值/退出比率排序。数值越高表示印刷估值超过可执行现金退出。",
+    "columns": {
+      "mint": "铸币地址",
+      "grade": "评级",
+      "exit95": "95%退出容量",
+      "mcapExit": "市值/退出",
+      "cliff": "断崖",
+      "noRoute": "无路由"
+    },
+    "assetTitle": "资产详情",
+    "latestScore": "最新评分",
+    "noScore": "暂无评分。",
+    "exitCurve": "现金退出曲线",
+    "routeTable": "路由表",
+    "routeCols": {
+      "notional": "名义金额",
+      "cashOut": "现金回收",
+      "efficiency": "效率",
+      "route": "路由",
+      "bindingLeg": "约束环节"
+    },
+    "noRoute": "无路由",
+    "calculatorTitle": "持仓退出计算器",
+    "calculatorSubtitle": "按标价规模的持仓，你实际能收到多少 USDC？",
+    "selectAsset": "选择资产",
+    "calculate": "计算退出",
+    "requested": "请求金额",
+    "matchedRung": "匹配档位",
+    "cashOut": "现金回收",
+    "bindingLeg": "约束环节",
+    "failedLoad": "加载资产失败"
+  },
+  "charts": {
+    "exitImpactTitle": "$10 万名义金额退出成本（%，绝对值）",
+    "exitImpactCaption": "卖出至 USDC。柱越右 = 退出越差。",
+    "tvlScatterTitle": "TVL/市值比率 vs 实测退出成本",
+    "tvlScatterCaption": "该比率不能预测退出成本（ρ = −0.66）。绝对 TVL 可以（ρ = −0.92）。",
+    "cliffTitle": "STRCx 路由断崖",
+    "cliffCaption": "执行价格（$/代币）vs 订单名义金额。断崖约在 $20 万。",
+    "tvlAxis": "TVL / 市值 (%)",
+    "impactAxis": "$10 万退出影响 (%)",
+    "notionalAxis": "订单名义金额",
+    "priceAxis": "执行价格 ($)",
+    "depthSurfaceTitle": "退出成本深度曲面（18 资产扫描）",
+    "depthSurfaceCaption": "高度为对数缩放的实测退出成本。空心线框 = 该规模无路由。数据来自 2026年9月13日快照。",
+    "depthSurfaceAxes": {
+      "x": "资产（$10 万退出成本：优 → 劣）",
+      "y": "退出成本（对数刻度）",
+      "z": "订单名义金额（$2.5万 / $10万 / $25万）"
+    },
+    "depthSurfaceHint": "拖动旋转 · 滚轮缩放",
+    "depthSurfaceFallbackNotice": "无法显示 3D 视图 — 已切换为 2D 回退图。",
+    "depthSurfaceFallbackTitle": "$10 万退出成本（回退）",
+    "depthSurfaceFallbackCaption": "卖出至 USDC。柱越右 = 退出越差。",
+    "depthSurfaceTooltip": {
+      "symbol": "资产",
+      "notional": "名义金额",
+      "impact": "退出成本",
+      "noRoute": "无路由"
+    }
+  }
+}

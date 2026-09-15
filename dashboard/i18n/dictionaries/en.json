@@ -1,0 +1,234 @@
+{
+  "agency": {
+    "name": "CoolBB",
+    "tagline": "Multidisciplinary development studio — AI, blockchain, games, SaaS & Web3. We refine ideas, architect systems, and ship production-grade products.",
+    "builtBy": "Built by CoolBB",
+    "contactX": "X",
+    "website": "coolbb.site"
+  },
+  "product": {
+    "name": "Liquidity Depth Scanner"
+  },
+  "nav": {
+    "brand": "CoolBB",
+    "home": "Home",
+    "why": "Why it matters",
+    "roadmap": "Roadmap",
+    "methodology": "Methodology",
+    "scanner": "Scanner",
+    "calculator": "Calculator"
+  },
+  "common": {
+    "provenance": "Measured 13 Sep 2026, US equity markets closed · Jupiter router quotes",
+    "disclaimer": "Research tool only. Not investment advice. Executable quotes reflect router state at probe time and may change.",
+    "openScanner": "Open scanner",
+    "readWhy": "Why this matters",
+    "viewRoadmap": "View roadmap",
+    "yes": "yes",
+    "no": "no",
+    "loading": "Loading…",
+    "apiUnavailable": "API unavailable"
+  },
+  "home": {
+    "kicker": "A CoolBB product",
+    "title": "Can you actually get out at the printed price?",
+    "subtitle": "Executable cash-exit capacity for Solana tokenized equities and stock-quoted launches — measured, not estimated.",
+    "productLine": "Liquidity Depth Scanner — executable exit capacity for Solana tokenized equities.",
+    "stat1Label": "Assets probed",
+    "stat1Value": "18 xStocks",
+    "stat2Label": "STRCx cliff",
+    "stat2Value": "$150k → $0.04",
+    "stat3Label": "STONK $1M exit",
+    "stat3Value": "85% recovery",
+    "whatTitle": "What this is",
+    "whatBody": "A hosted probe engine that asks Jupiter for real sell quotes at escalating order sizes, then scores how much USDC you actually receive versus the printed market cap. It detects routing cliffs, no-route walls, and binding legs that TVL dashboards cannot see.",
+    "ctaScanner": "Browse live leaderboard",
+    "ctaWhy": "See the measured evidence"
+  },
+  "why": {
+    "title": "Why this tool is essential",
+    "subtitle": "Six findings from live measurement — not theory.",
+    "sections": [
+      {
+        "title": "The printed price is not the exit price",
+        "body": "STONK shows $215M on-chain market cap. A $1M cash exit recovers only 85%. Printed valuation and executable exit capacity are different numbers — and the gap can be enormous."
+      },
+      {
+        "title": "The metric everyone publishes is the wrong one",
+        "body": "Pool TVL ÷ market cap correlates at ρ = −0.66 with measured exit cost. Absolute pool TVL reaches ρ = −0.92. Normalising by valuation actively destroys signal. SPYx ranks worst by TVL/mcap ratio (5.3%) yet executes $100k at 9 basis points."
+      },
+      {
+        "title": "Cliffs are invisible to every existing dashboard",
+        "body": "STRCx executes cleanly at $150k, then returns $0.04 per token at $200k because the router switches paths. TVL, volume, and price are unchanged. Only a size-dependent quote probe reveals this."
+      },
+      {
+        "title": "Hard walls matter more than big slippage numbers",
+        "body": "6 of 18 probed assets return no route at $250k. FTR fails above $25k. A no-route ceiling is a harder capacity limit than any slippage percentage."
+      },
+      {
+        "title": "You may not hold the asset you think you do",
+        "body": "Searching for HOODx returns ~20 tokens. One embeds the genuine mint address inside its own name field to defeat string matching. Mint-level authentication is a prerequisite, not a feature."
+      },
+      {
+        "title": "Quoted depth is not committed depth",
+        "body": "Much of the good depth on majors comes from RFQ venues (Riptide, Byreal, AlphaQ) that can withdraw precisely under stress. The scanner tags RFQ share separately instead of merging it into one depth number."
+      }
+    ]
+  },
+  "roadmap": {
+    "title": "Roadmap",
+    "subtitle": "From Solana measurement to multi-venue exit intelligence.",
+    "legend": {
+      "complete": "Shipped",
+      "active": "In progress",
+      "planned": "Planned"
+    },
+    "stages": [
+      {
+        "id": "shipped",
+        "status": "complete",
+        "shortLabel": "Solana",
+        "title": "Shipped — Solana",
+        "items": [
+          "Jupiter quote-probe engine with micro-quote baseline and 7-rung sell ladder",
+          "24 issuer-verified xStocks + ~395 stock-quoted launches via StonkFun registry",
+          "Exit-capacity scoring: cliffs, no-route ceilings, binding-leg detection, grades A–F",
+          "Mint-keyed registry with impersonation flags",
+          "Tiered scheduler with monthly Jupiter credit budget guard",
+          "REST API + scanner dashboard"
+        ]
+      },
+      {
+        "id": "solana-next",
+        "status": "active",
+        "shortLabel": "Depth",
+        "title": "Next — Solana depth",
+        "items": [
+          "Redemption channel modelling: cost to exit now vs cost to exit at NAV (Ondo 24/7 mint/redeem, Backpack 1:1)",
+          "Buy-side ladders to expose entry/exit asymmetry",
+          "Weekday vs weekend session decay as a published metric",
+          "RFQ vs AMM depth split surfaced in the UI"
+        ]
+      },
+      {
+        "id": "robinhood",
+        "status": "planned",
+        "shortLabel": "Robinhood",
+        "title": "Robinhood Chain expansion",
+        "items": [
+          "Second venue adapter: Uniswap on Robinhood Chain (chain ID 4663), UniversalRouter 0x8876…c0904, router v2.1.1",
+          "Cash leg is USDG, not USDC — per-venue cash mint in settings",
+          "Cross-check via Switch aggregator (14 adapters: Uniswap v2/v3/v4, PancakeSwap, SushiSwap, RobinSwap)",
+          "uiMultiplier correction: raw ERC-20 balance hides accrued total return on Robinhood Stock Tokens",
+          "True bid/ask reference from Robinhood prices API — premium/discount vs on-chain price",
+          "Trading-halt and corporate-action awareness from issuer endpoints",
+          "Risk distinction: Robinhood Stock Tokens are debt securities (issuer credit risk) vs xStocks 1:1 backed claims",
+          "Engineering: Robinhood Chain forks Uniswap v4 swap struct with minHopPriceX36 — quote-only probing sidesteps this"
+        ]
+      },
+      {
+        "id": "beyond",
+        "status": "planned",
+        "shortLabel": "Beyond",
+        "title": "Beyond",
+        "items": [
+          "Cross-venue best-exit routing: same equity on Solana xStock, Backpack, Ondo, and Robinhood Stock Token",
+          "Equity perpetuals as hedging alternative when spot exit is walled",
+          "RFQ withdrawal stress analytics and historical cliff recurrence",
+          "Published reproducible probe receipts (open methodology)",
+          "Alerting, embeddable widgets, and API tiers"
+        ]
+      }
+    ]
+  },
+  "methodology": {
+    "title": "How we measure",
+    "subtitle": "Open, timestamped, reproducible — not a black-box score.",
+    "steps": [
+      {
+        "title": "Micro-quote baseline",
+        "body": "A $200 sell quote establishes the execution price baseline. All ladder rungs measure relative impact against this baseline, not against the external oracle price. This separates size-dependent slippage from premium/discount to reference."
+      },
+      {
+        "title": "Sell ladder",
+        "body": "Seven notionals: $1k, $10k, $50k, $100k, $250k, $500k, $1M. For each, we request a Jupiter sell quote (token → USDC) and take the median of 3 samples."
+      },
+      {
+        "title": "Cliff bisection",
+        "body": "When adjacent rungs show >15% efficiency drop AND route composition changes, we bisect between them to refine the cliff boundary."
+      },
+      {
+        "title": "Scoring",
+        "body": "Exit capacity at 99%/95%/90% thresholds via log-linear interpolation. No-route ceiling, mcap-to-exit ratio, RFQ dependence, cliff detection, and letter grades A–F."
+      },
+      {
+        "title": "Guards against known bugs",
+        "body": "Decimals always from Jupiter price/v3 API — never assumed. Flat-across-sizes curves with nonzero offset are rejected (external-price baseline error). Regression fixtures lock SPYx, STONK, STRCx cliff, and FTR no-route."
+      }
+    ],
+    "disclaimer": "This tool measures executable router quotes at probe time. It does not predict future liquidity, guarantee execution, or constitute investment advice. Past probe results do not guarantee future exit capacity."
+  },
+  "scanner": {
+    "leaderboardTitle": "Exit-risk leaderboard",
+    "leaderboardSubtitle": "Ranked by mcap-to-exit ratio. Higher means printed valuation exceeds executable cash exit.",
+    "columns": {
+      "mint": "Mint",
+      "grade": "Grade",
+      "exit95": "Exit @95%",
+      "mcapExit": "Mcap/Exit",
+      "cliff": "Cliff",
+      "noRoute": "No-route"
+    },
+    "assetTitle": "Asset detail",
+    "latestScore": "Latest score",
+    "noScore": "No score yet.",
+    "exitCurve": "Cash exit curve",
+    "routeTable": "Route table",
+    "routeCols": {
+      "notional": "Notional",
+      "cashOut": "Cash out",
+      "efficiency": "Efficiency",
+      "route": "Route",
+      "bindingLeg": "Binding leg"
+    },
+    "noRoute": "NO ROUTE",
+    "calculatorTitle": "Position exit calculator",
+    "calculatorSubtitle": "How much USDC do you actually get for a position sized at the printed price?",
+    "selectAsset": "Select asset",
+    "calculate": "Calculate exit",
+    "requested": "Requested",
+    "matchedRung": "Matched rung",
+    "cashOut": "Cash out",
+    "bindingLeg": "Binding leg",
+    "failedLoad": "Failed to load asset"
+  },
+  "charts": {
+    "exitImpactTitle": "Exit cost at $100k notional (%, absolute)",
+    "exitImpactCaption": "Sell-side into USDC. Bars right = worse exit.",
+    "tvlScatterTitle": "TVL/mcap ratio vs measured exit cost",
+    "tvlScatterCaption": "The ratio does not predict exit cost (ρ = −0.66). Absolute TVL does (ρ = −0.92).",
+    "cliffTitle": "STRCx routing cliff",
+    "cliffCaption": "Execution price ($/token) vs order notional. Cliff at ~$200k.",
+    "tvlAxis": "TVL / Mcap (%)",
+    "impactAxis": "Exit impact @ $100k (%)",
+    "notionalAxis": "Order notional",
+    "priceAxis": "Execution price ($)",
+    "depthSurfaceTitle": "Exit-cost depth surface (18-asset sweep)",
+    "depthSurfaceCaption": "Height is log-scaled measured exit cost. Hollow wireframe cages = no route at that size. Data from 13 Sep 2026 snapshot.",
+    "depthSurfaceAxes": {
+      "x": "Asset (best → worst @ $100k)",
+      "y": "Exit cost (log scale)",
+      "z": "Order notional ($25k / $100k / $250k)"
+    },
+    "depthSurfaceHint": "Drag to rotate · scroll to zoom",
+    "depthSurfaceFallbackNotice": "3D view unavailable — showing 2D fallback.",
+    "depthSurfaceFallbackTitle": "Exit cost at $100k (fallback)",
+    "depthSurfaceFallbackCaption": "Sell-side into USDC. Bars right = worse exit.",
+    "depthSurfaceTooltip": {
+      "symbol": "Asset",
+      "notional": "Notional",
+      "impact": "Exit cost",
+      "noRoute": "NO ROUTE"
+    }
+  }
+}

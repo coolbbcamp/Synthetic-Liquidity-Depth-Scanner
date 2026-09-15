@@ -1,0 +1,97 @@
+{
+  "captured_at": "2026-09-13T14:15:00Z",
+  "question": "Does a stock-quoted launch hide exit cost in leg2 (token->xStock->USDC) that pool pages do not show?",
+  "verdict": "NO — not as a headline differentiator",
+  "summary": "Across 6 measured stock-quoted launches (STONK/SPYx, SNP500/SPYx, FTR/TSLAx, NVDGE/NVDAx, FRIES/MCDx, ROB/HOODx), the hidden leg2 tax is under 1% at every size where exit is possible. Leg1 (token->quote stock) and full cash exit track together. The binding constraint is almost always the meme/launch pool (leg1), not converting the quote stock to USDC (leg2).",
+  "max_hidden_hop_gap_pct": {
+    "STONK_SPYx_at_1M": 0.99,
+    "ROB_HOODx_at_1k": 0.47,
+    "FRIES_MCDx_at_1k": -1.98
+  },
+  "what_actually_hurts": [
+    "Printed mcap vs executable cash exit (STONK: $215M mcap but $1M exit recovers only 85%)",
+    "Leg1 pool depth on the launch pair, not quote-stock conversion",
+    "No-route walls on thin launches (FTR fails above $25k; NVDGE above $100k)",
+    "Ticker impersonation on quote and base assets"
+  ],
+  "revised_product_focus": [
+    "Cash exit curve per launch (not leg1-only pool page view)",
+    "Identify binding leg: leg1 vs leg2 vs no-route",
+    "Mcap-to-exit-capacity ratio",
+    "Mint-authenticated registry for stock-quoted launches"
+  ],
+  "cases": [
+    {
+      "symbol": "STONK",
+      "quote": "SPYx",
+      "market_cap_usd": 214693012,
+      "pool": "7a8xxAJBELDo6P9dikSYctdw6ce8F4mWr3ahcAD8Ao49",
+      "cash_exit_efficiency": {
+        "10000": 99.85,
+        "100000": 98.29,
+        "1000000": 85.27
+      },
+      "hidden_hop_gap_pct_at_100k": -0.47
+    },
+    {
+      "symbol": "SNP500",
+      "quote": "SPYx",
+      "market_cap_usd": 45784,
+      "cash_exit_efficiency": {
+        "10000": 49.46,
+        "100000": 8.91
+      },
+      "hidden_hop_gap_pct_at_100k": -0.06
+    },
+    {
+      "symbol": "NVDGE",
+      "quote": "NVDAx",
+      "market_cap_usd": 235894,
+      "cash_exit_efficiency": {
+        "10000": 76.97,
+        "100000": 26.14
+      },
+      "no_route_above_usd": 250000
+    },
+    {
+      "symbol": "FRIES",
+      "quote": "MCDx",
+      "market_cap_usd": 688337,
+      "cash_exit_efficiency": {
+        "10000": 86.22,
+        "100000": 41.35
+      },
+      "hidden_hop_gap_pct_at_100k": -0.48
+    },
+    {
+      "symbol": "ROB",
+      "quote": "HOODx",
+      "market_cap_usd": 130565,
+      "cash_exit_efficiency": {
+        "10000": 60.11,
+        "100000": 13.15
+      },
+      "hidden_hop_gap_pct_at_100k": 0.1
+    },
+    {
+      "symbol": "FTR",
+      "quote": "TSLAx",
+      "market_cap_usd": 56836,
+      "no_route_above_usd": 50000
+    }
+  ],
+  "hoodx_direct_stress_test": {
+    "note": "HOODx->USDC direct, no meme leg. Leg2 only becomes material above $250k.",
+    "efficiency_pct": {
+      "10000": 97.93,
+      "100000": 96.55,
+      "250000": 91.26,
+      "500000": "NO_ROUTE"
+    }
+  },
+  "data_files": [
+    "two_hop_measurement.json",
+    "two_hop_thin_quote.json",
+    "measure_two_hop.py"
+  ]
+}

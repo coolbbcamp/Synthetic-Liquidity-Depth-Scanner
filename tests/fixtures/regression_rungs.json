@@ -1,0 +1,31 @@
+{
+  "SPYx_100k": {
+    "mcap_usd": 72700000,
+    "rungs": [
+      {"notional_usd": 10000, "out_usd": 9990, "no_route": false, "route_labels": "Riptide"},
+      {"notional_usd": 100000, "out_usd": 99910, "no_route": false, "route_labels": "Riptide+Raydium CLMM"}
+    ],
+    "expected_efficiency_at_100k_min": 0.99
+  },
+  "STONK_100k": {
+    "mcap_usd": 214693012,
+    "rungs": [
+      {"notional_usd": 100000, "out_usd": 98288, "no_route": false, "route_labels": "Whirlpool+Meteora DLMM"}
+    ],
+    "expected_cash_efficiency_at_100k_min": 0.98
+  },
+  "STRCx_cliff": {
+    "rungs": [
+      {"notional_usd": 150000, "out_usd": 149000, "no_route": false, "route_labels": "Byreal+Raydium CLMM"},
+      {"notional_usd": 200000, "out_usd": 80, "no_route": false, "route_labels": "Raydium CP+Meteora DAMM v2+HumidiFi"}
+    ],
+    "expect_cliff": true
+  },
+  "FTR_no_route": {
+    "rungs": [
+      {"notional_usd": 10000, "out_usd": 6313, "no_route": false, "route_labels": "Pump.fun"},
+      {"notional_usd": 50000, "out_usd": null, "no_route": true, "route_labels": "NO-ROUTE"}
+    ],
+    "expected_no_route_ceiling": 50000
+  }
+}

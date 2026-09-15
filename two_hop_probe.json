@@ -1,0 +1,166 @@
+[
+    {
+        "sym":  "SPYx Stock PPX",
+        "quote":  "SPYx",
+        "px":  3.9960627866169839E-06,
+        "baseDirect":  3.7541657213013291E-06,
+        "rows":  [
+                     {
+                         "usd":  1000,
+                         "direct":  797.259747,
+                         "composed":  797.259747,
+                         "directRoute":  "Pump.fun+Raydium CLMM",
+                         "leg1Route":  "Pump.fun",
+                         "leg2Route":  "Raydium CLMM"
+                     },
+                     {
+                         "usd":  5000,
+                         "direct":  2269.161979,
+                         "composed":  2269.45346,
+                         "directRoute":  "Pump.fun+Raydium CLMM",
+                         "leg1Route":  "Pump.fun",
+                         "leg2Route":  "Byreal+Raydium CLMM+Whirlpool"
+                     },
+                     {
+                         "usd":  10000,
+                         "direct":  2949.915764,
+                         "composed":  2950.409862,
+                         "directRoute":  "Pump.fun+Raydium CLMM",
+                         "leg1Route":  "Pump.fun",
+                         "leg2Route":  "Whirlpool+Raydium CLMM+Byreal"
+                     },
+                     {
+                         "usd":  25000,
+                         "direct":  3597.439232,
+                         "composed":  3598.200035,
+                         "directRoute":  "Pump.fun+Raydium CLMM",
+                         "leg1Route":  "Pump.fun",
+                         "leg2Route":  "Byreal+Whirlpool+Raydium CLMM"
+                     },
+                     {
+                         "usd":  50000,
+                         "direct":  3881.433253,
+                         "composed":  3882.334378,
+                         "directRoute":  "Pump.fun+Raydium CLMM",
+                         "leg1Route":  "Pump.fun",
+                         "leg2Route":  "Byreal+Raydium CLMM+Whirlpool"
+                     }
+                 ]
+    },
+    {
+        "sym":  "SPYx Dog",
+        "quote":  "SPYx",
+        "px":  2.7883558139873816E-06,
+        "baseDirect":  2.5836040721522534E-06,
+        "rows":  [
+                     {
+                         "usd":  1000,
+                         "direct":  740.812903,
+                         "composed":  740.605252,
+                         "directRoute":  "Pump.fun+BisonFi+Byreal",
+                         "leg1Route":  "Pump.fun+GoonFi V2+Riptide",
+                         "leg2Route":  "Raydium CLMM"
+                     },
+                     {
+                         "usd":  5000,
+                         "direct":  1849.800951,
+                         "composed":  1849.276821,
+                         "directRoute":  "Pump.fun+GoonFi V2+Quantum",
+                         "leg1Route":  "Pump.fun+GoonFi V2+Riptide",
+                         "leg2Route":  "Raydium CLMM+Byreal+Whirlpool"
+                     },
+                     {
+                         "usd":  10000,
+                         "direct":  2275.437203,
+                         "composed":  2274.728708,
+                         "directRoute":  "Pump.fun+HumidiFi+Flux+HumidiFi",
+                         "leg1Route":  "Pump.fun+GoonFi V2+Riptide",
+                         "leg2Route":  "Byreal+Whirlpool+Raydium CLMM"
+                     },
+                     {
+                         "usd":  25000,
+                         "direct":  2639.42485,
+                         "composed":  2638.435513,
+                         "directRoute":  "Pump.fun+HumidiFi+HumidiFi",
+                         "leg1Route":  "Pump.fun+Whirlpool+Riptide",
+                         "leg2Route":  "Byreal+Raydium CLMM+Whirlpool"
+                     },
+                     {
+                         "usd":  50000,
+                         "direct":  2788.574219,
+                         "composed":  2787.615893,
+                         "directRoute":  "Pump.fun+HumidiFi+HumidiFi+HumidiFi",
+                         "leg1Route":  "Pump.fun+HumidiFi+Riptide",
+                         "leg2Route":  "Byreal+Raydium CLMM+Whirlpool"
+                     }
+                 ]
+    },
+    {
+        "sym":  "TSLAx pump clone",
+        "quote":  "TSLAx",
+        "px":  2.9551376631401507E-06,
+        "baseDirect":  null,
+        "rows":  [
+                     {
+                         "usd":  1000,
+                         "direct":  null,
+                         "composed":  null,
+                         "directRoute":  "NO-ROUTE",
+                         "leg1Route":  "NO-ROUTE",
+                         "leg2Route":  "NO-ROUTE"
+                     },
+                     {
+                         "usd":  5000,
+                         "direct":  null,
+                         "composed":  null,
+                         "directRoute":  "NO-ROUTE",
+                         "leg1Route":  "NO-ROUTE",
+                         "leg2Route":  "NO-ROUTE"
+                     },
+                     {
+                         "usd":  10000,
+                         "direct":  null,
+                         "composed":  null,
+                         "directRoute":  "NO-ROUTE",
+                         "leg1Route":  "NO-ROUTE",
+                         "leg2Route":  "NO-ROUTE"
+                     },
+                     {
+                         "usd":  25000,
+                         "direct":  null,
+                         "composed":  null,
+                         "directRoute":  "NO-ROUTE",
+                         "leg1Route":  "NO-ROUTE",
+                         "leg2Route":  "NO-ROUTE"
+                     },
+                     {
+                         "usd":  50000,
+                         "direct":  null,
+                         "composed":  null,
+                         "directRoute":  "NO-ROUTE",
+                         "leg1Route":  "NO-ROUTE",
+                         "leg2Route":  "NO-ROUTE"
+                     }
+                 ]
+    },
+    {
+        "sym":  "dogtest TSLAX Pairz",
+        "status":  "no price",
+        "px":  null
+    },
+    {
+        "sym":  "HOODx pump clone",
+        "status":  "no price",
+        "px":  null
+    },
+    {
+        "sym":  "NVDAx pump clone",
+        "status":  "no price",
+        "px":  null
+    },
+    {
+        "sym":  "dogggo NVDAX Pairz",
+        "status":  "no price",
+        "px":  null
+    }
+]

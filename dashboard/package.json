@@ -1,0 +1,34 @@
+{
+  "name": "liquidity-depth-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "node -e \"try{require('fs').rmSync('.next',{recursive:true,force:true})}catch(e){}\"",
+    "kill-ports": "node scripts/kill-dev-ports.mjs",
+    "dev": "node scripts/kill-dev-ports.mjs && next dev",
+    "dev:clean": "node scripts/kill-dev-ports.mjs && npm run clean && next dev",
+    "build": "node scripts/kill-dev-ports.mjs && npm run clean && next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.0.0",
+    "@react-three/fiber": "^9.0.0",
+    "next": "^15.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "recharts": "^2.15.0",
+    "three": "^0.180.0"
+  },
+  "overrides": {
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.180.0",
+    "typescript": "^5.7.0"
+  }
+}
