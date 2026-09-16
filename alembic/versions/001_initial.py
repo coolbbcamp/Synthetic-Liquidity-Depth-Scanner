@@ -33,7 +33,7 @@ def upgrade() -> None:
     )
     op.create_table(
         "impersonation_flags",
-        sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
+        sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("mint", sa.String(length=64), nullable=False),
         sa.Column("suspected_target_mint", sa.String(length=64), nullable=False),
         sa.Column("reason", sa.String(length=64), nullable=False),
@@ -43,7 +43,7 @@ def upgrade() -> None:
     op.create_index("ix_impersonation_flags_mint", "impersonation_flags", ["mint"])
     op.create_table(
         "probes",
-        sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
+        sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("mint", sa.String(length=64), sa.ForeignKey("assets.mint"), nullable=False),
         sa.Column("probed_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column("session_state", sa.String(length=16), nullable=False),
@@ -56,8 +56,8 @@ def upgrade() -> None:
     op.create_index("ix_probes_probed_at", "probes", ["probed_at"])
     op.create_table(
         "probe_rungs",
-        sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
-        sa.Column("probe_id", sa.BigInteger(), sa.ForeignKey("probes.id"), nullable=False),
+        sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
+        sa.Column("probe_id", sa.Integer(), sa.ForeignKey("probes.id"), nullable=False),
         sa.Column("direction", sa.String(length=8), nullable=False, server_default="sell"),
         sa.Column("notional_usd", sa.Float(), nullable=False),
         sa.Column("token_qty", sa.Float(), nullable=False),
@@ -73,7 +73,7 @@ def upgrade() -> None:
     op.create_index("ix_probe_rungs_probe_id", "probe_rungs", ["probe_id"])
     op.create_table(
         "scores",
-        sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
+        sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("mint", sa.String(length=64), sa.ForeignKey("assets.mint"), nullable=False),
         sa.Column("computed_at", sa.DateTime(timezone=True), nullable=False),
         sa.Column("exit_capacity_99", sa.Float(), nullable=True),
@@ -92,7 +92,7 @@ def upgrade() -> None:
     op.create_index("ix_scores_computed_at", "scores", ["computed_at"])
     op.create_table(
         "alerts",
-        sa.Column("id", sa.BigInteger(), primary_key=True, autoincrement=True),
+        sa.Column("id", sa.Integer(), primary_key=True, autoincrement=True),
         sa.Column("mint", sa.String(length=64), nullable=False),
         sa.Column("kind", sa.String(length=64), nullable=False),
         sa.Column("detected_at", sa.DateTime(timezone=True), nullable=False),

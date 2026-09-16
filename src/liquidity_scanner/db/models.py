@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -36,7 +36,7 @@ class Asset(Base):
 class Probe(Base):
     __tablename__ = "probes"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     mint: Mapped[str] = mapped_column(String(64), ForeignKey("assets.mint"), index=True)
     probed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     session_state: Mapped[str] = mapped_column(String(16))
@@ -52,8 +52,8 @@ class Probe(Base):
 class ProbeRung(Base):
     __tablename__ = "probe_rungs"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
-    probe_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("probes.id"), index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    probe_id: Mapped[int] = mapped_column(Integer, ForeignKey("probes.id"), index=True)
     direction: Mapped[str] = mapped_column(String(8), default="sell")
     notional_usd: Mapped[float] = mapped_column(Float)
     token_qty: Mapped[float] = mapped_column(Float)
@@ -72,7 +72,7 @@ class ProbeRung(Base):
 class Score(Base):
     __tablename__ = "scores"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     mint: Mapped[str] = mapped_column(String(64), ForeignKey("assets.mint"), index=True)
     computed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     exit_capacity_99: Mapped[float | None] = mapped_column(Float, nullable=True)
@@ -93,7 +93,7 @@ class Score(Base):
 class ImpersonationFlag(Base):
     __tablename__ = "impersonation_flags"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     mint: Mapped[str] = mapped_column(String(64), index=True)
     suspected_target_mint: Mapped[str] = mapped_column(String(64))
     reason: Mapped[str] = mapped_column(String(64))
@@ -104,7 +104,7 @@ class ImpersonationFlag(Base):
 class Alert(Base):
     __tablename__ = "alerts"
 
-    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     mint: Mapped[str] = mapped_column(String(64), index=True)
     kind: Mapped[str] = mapped_column(String(64))
     detected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)

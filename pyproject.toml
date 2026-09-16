@@ -9,6 +9,7 @@ description = "Executable cash-exit capacity scanner for Solana tokenized equiti
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+  "aiosqlite>=0.20.0",
   "alembic>=1.14.0",
   "apscheduler>=3.10.4",
   "asyncpg>=0.30.0",

@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import desc, select
+from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -12,7 +12,6 @@ from liquidity_scanner.config import get_settings
 from liquidity_scanner.db.models import Alert, Asset, Probe, ProbeRung, Score
 from liquidity_scanner.db.session import get_session, init_engine
 from liquidity_scanner.logging import configure_logging, get_logger
-from liquidity_scanner.probe.engine import ProbeEngine
 from liquidity_scanner.schemas import (
     AlertOut,
     AssetDetailOut,
@@ -32,8 +31,13 @@ init_engine()
 app = FastAPI(title="Liquidity Depth Scanner", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -49,17 +53,31 @@ async def list_assets(
     kind: str | None = None,
     session: AsyncSession = Depends(get_session),
 ) -> list[AssetOut]:
-    stmt = select(Asset).where(Asset.active.is_(True))
+    latest_probe = (
+        select(Probe.mint, func.max(Probe.probed_at).label("probed_at"))
+        .where(Probe.ok.is_(True))
+        .group_by(Probe.mint)
+        .subquery()
+    )
+    stmt = (
+        select(Asset, latest_probe.c.probed_at)
+        .outerjoin(latest_probe, Asset.mint == latest_probe.c.mint)
+        .where(Asset.active.is_(True))
+    )
     if kind:
         stmt = stmt.where(Asset.kind == kind)
-    result = await session.execute(stmt.order_by(Asset.symbol))
-    assets = result.scalars().all()
+    result = await session.execute(stmt)
+    rows = result.all()
+
+    scores_result = await session.execute(select(Score).order_by(desc(Score.computed_at)))
+    latest_score_by_mint: dict[str, Score] = {}
+    for score in scores_result.scalars():
+        if score.mint not in latest_score_by_mint:
+            latest_score_by_mint[score.mint] = score
+
     out: list[AssetOut] = []
-    for asset in assets:
-        score_result = await session.execute(
-            select(Score).where(Score.mint == asset.mint).order_by(desc(Score.computed_at)).limit(1)
-        )
-        score = score_result.scalar_one_or_none()
+    for asset, probed_at in rows:
+        score = latest_score_by_mint.get(asset.mint)
         out.append(
             AssetOut(
                 mint=asset.mint,
@@ -69,8 +87,18 @@ async def list_assets(
                 quote_symbol=asset.quote_symbol,
                 tier=asset.tier,
                 latest_score=ScoreOut.model_validate(score) if score else None,
+                probed_at=probed_at,
+                is_probed=probed_at is not None,
             )
         )
+
+    out.sort(
+        key=lambda row: (
+            0 if row.is_probed else 1,
+            row.symbol.lower(),
+            row.mint,
+        )
+    )
     return out
 
 
@@ -145,18 +173,26 @@ async def exit_quote(
     notional: float = Query(gt=0),
     session: AsyncSession = Depends(get_session),
 ) -> ExitQuoteOut:
+    """Return exit quote from the latest cached probe (no live Jupiter call)."""
     asset = await session.get(Asset, mint)
     if asset is None:
         raise HTTPException(status_code=404, detail="asset not found")
 
-    engine = ProbeEngine(settings)
-    result = await engine.probe_asset(asset)
-    match = next((r for r in result.rungs if r.notional_usd == notional), None)
+    probe_result = await session.execute(
+        select(Probe)
+        .where(Probe.mint == mint, Probe.ok.is_(True))
+        .options(selectinload(Probe.rungs))
+        .order_by(desc(Probe.probed_at))
+        .limit(1)
+    )
+    probe = probe_result.scalar_one_or_none()
+    if probe is None or not probe.rungs:
+        raise HTTPException(status_code=404, detail="asset not probed yet")
+
+    rungs = probe.rungs
+    match = next((r for r in rungs if r.notional_usd == notional), None)
     if match is None:
-        closest = min(result.rungs, key=lambda r: abs(r.notional_usd - notional), default=None)
-        if closest is None:
-            raise HTTPException(status_code=404, detail="no probe rungs available")
-        match = closest
+        match = min(rungs, key=lambda r: abs(r.notional_usd - notional))
     return ExitQuoteOut(
         mint=mint,
         notional_usd=notional,
@@ -166,7 +202,7 @@ async def exit_quote(
         route_labels=match.route_labels,
         binding_leg=match.binding_leg,
         no_route=match.no_route,
-        probed_at=result.probed_at,
+        probed_at=probe.probed_at,
     )
 
 

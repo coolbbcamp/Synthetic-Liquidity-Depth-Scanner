@@ -30,6 +30,8 @@ class AssetOut(BaseModel):
     quote_symbol: str | None
     tier: str
     latest_score: ScoreOut | None
+    probed_at: datetime | None = None
+    is_probed: bool = False
 
 
 class ProbeRungOut(BaseModel):

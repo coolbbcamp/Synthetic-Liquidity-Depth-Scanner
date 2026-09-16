@@ -1,6 +1,6 @@
 "use client";
 
-import { Edges, Line, OrbitControls } from "@react-three/drei";
+import { Line, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useState } from "react";
 import * as THREE from "three";
@@ -36,83 +36,76 @@ function RoadmapMonolith({
   index,
   status,
   colors,
-  brandColor,
+  brandMuted,
 }: {
   position: [number, number, number];
   index: number;
   status: RoadmapStageStatus;
   colors: ReturnType<typeof useThemeColors>;
-  brandColor: THREE.Color;
+  brandMuted: THREE.Color;
 }) {
   const [x, y, z] = position;
   const blockH = monolithHeight(index);
   const groupY = y + PEDESTAL_H / 2;
 
-  const accent = status === "complete" ? brandColor : colors.accent;
+  const accent = status === "complete" ? brandMuted : colors.accent;
   const isPlanned = status === "planned";
+  const emissiveIntensity =
+    status === "complete" ? 0.12 : status === "active" ? 0.08 : 0.03;
 
   return (
     <group position={[x, groupY, z]}>
-      {/* Pedestal */}
       <mesh position={[0, 0, 0]}>
         <boxGeometry args={[PEDESTAL_W + 0.2, PEDESTAL_H, PEDESTAL_D + 0.2]} />
         <meshStandardMaterial
           color={colors.panel}
-          metalness={0.35}
-          roughness={0.65}
+          metalness={0.2}
+          roughness={0.75}
           transparent
-          opacity={isPlanned ? 0.35 : 0.7}
+          opacity={isPlanned ? 0.25 : 0.55}
         />
-        <Edges threshold={15} color={colors.grid} />
       </mesh>
 
-      {/* Monolith */}
       <group position={[0, PEDESTAL_H / 2 + blockH / 2, 0]}>
         <mesh>
           <boxGeometry args={[PEDESTAL_W, blockH, PEDESTAL_D]} />
           <meshStandardMaterial
-            color={isPlanned ? colors.muted : accent}
-            metalness={isPlanned ? 0.1 : 0.55}
-            roughness={isPlanned ? 0.85 : 0.28}
+            color={isPlanned ? colors.muted : colors.panel}
+            metalness={isPlanned ? 0.1 : 0.22}
+            roughness={isPlanned ? 0.9 : 0.68}
             transparent
-            opacity={isPlanned ? 0.22 : status === "complete" ? 0.95 : 0.85}
+            opacity={isPlanned ? 0.18 : status === "complete" ? 0.72 : 0.65}
             emissive={isPlanned ? colors.muted : accent}
-            emissiveIntensity={isPlanned ? 0.08 : status === "complete" ? 0.45 : 0.3}
+            emissiveIntensity={emissiveIntensity}
           />
-          <Edges threshold={12} color={isPlanned ? colors.muted : colors.text} />
         </mesh>
 
-        {/* Top highlight cap */}
         {!isPlanned && (
           <mesh position={[0, blockH / 2 + 0.02, 0]}>
-            <boxGeometry args={[PEDESTAL_W * 0.92, 0.06, PEDESTAL_D * 0.92]} />
+            <boxGeometry args={[PEDESTAL_W * 0.92, 0.05, PEDESTAL_D * 0.92]} />
             <meshStandardMaterial
               color={accent}
               emissive={accent}
-              emissiveIntensity={0.5}
-              metalness={0.8}
-              roughness={0.15}
+              emissiveIntensity={0.12}
+              metalness={0.35}
+              roughness={0.55}
+              transparent
+              opacity={0.85}
             />
           </mesh>
         )}
       </group>
 
-      {/* Base glow ring */}
       {!isPlanned && (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, PEDESTAL_H / 2 + 0.01, 0]}>
-          <ringGeometry args={[PEDESTAL_W * 0.45, PEDESTAL_W * 0.62, 32]} />
+          <ringGeometry args={[PEDESTAL_W * 0.45, PEDESTAL_W * 0.58, 32]} />
           <meshBasicMaterial
             color={accent}
             transparent
-            opacity={status === "complete" ? 0.45 : 0.3}
+            opacity={status === "complete" ? 0.18 : 0.12}
             side={THREE.DoubleSide}
           />
         </mesh>
-      )}
-
-      {/* Active pulse pillar */}
-      {status === "active" && (
-        <pointLight position={[0, blockH * 0.6, 0]} intensity={0.8} color={accent} distance={5} />
       )}
     </group>
   );
@@ -121,11 +114,11 @@ function RoadmapMonolith({
 function ConnectingRamps({
   positions,
   colors,
-  brandColor,
+  brandMuted,
 }: {
   positions: [number, number, number][];
   colors: ReturnType<typeof useThemeColors>;
-  brandColor: THREE.Color;
+  brandMuted: THREE.Color;
 }) {
   const ramps = useMemo(() => {
     const items: {
@@ -154,27 +147,19 @@ function ConnectingRamps({
         position: mid,
         rotation,
         length,
-        color: i === 0 ? brandColor : colors.accent,
-        opacity: 0.35 + i * 0.05,
+        color: i === 0 ? brandMuted : colors.accent,
+        opacity: 0.12 + i * 0.03,
       });
     }
     return items;
-  }, [positions, colors.accent, brandColor]);
+  }, [positions, colors.accent, brandMuted]);
 
   return (
     <>
       {ramps.map((ramp, i) => (
         <mesh key={i} position={ramp.position} rotation={ramp.rotation}>
-          <boxGeometry args={[0.14, ramp.length, 0.5]} />
-          <meshStandardMaterial
-            color={ramp.color}
-            metalness={0.6}
-            roughness={0.35}
-            transparent
-            opacity={ramp.opacity}
-            emissive={ramp.color}
-            emissiveIntensity={0.15}
-          />
+          <boxGeometry args={[0.12, ramp.length, 0.4]} />
+          <meshBasicMaterial color={ramp.color} transparent opacity={ramp.opacity} />
         </mesh>
       ))}
     </>
@@ -183,10 +168,10 @@ function ConnectingRamps({
 
 function PathLine({
   positions,
-  brandColor,
+  brandMuted,
 }: {
   positions: [number, number, number][];
-  brandColor: THREE.Color;
+  brandMuted: THREE.Color;
 }) {
   const points = useMemo(() => {
     return positions.map((pos, i) => platformTop(pos, monolithHeight(i)));
@@ -195,10 +180,10 @@ function PathLine({
   return (
     <Line
       points={points}
-      color={brandColor}
-      lineWidth={1.5}
+      color={brandMuted}
+      lineWidth={1}
       transparent
-      opacity={0.5}
+      opacity={0.25}
       dashed={false}
     />
   );
@@ -208,8 +193,8 @@ function RoadmapSceneContent({ stages, animate }: SceneProps) {
   const colors = useThemeColors();
   const { scene } = useThree();
   const [tabHidden, setTabHidden] = useState(false);
-  const brandColor = useMemo(
-    () => new THREE.Color(readCssVar("--brand")),
+  const brandMuted = useMemo(
+    () => new THREE.Color(readCssVar("--brand-muted") || readCssVar("--brand")),
     [colors.bg, colors.accent, colors.text],
   );
 
@@ -219,7 +204,7 @@ function RoadmapSceneContent({ stages, animate }: SceneProps) {
   );
 
   useEffect(() => {
-    scene.fog = new THREE.FogExp2(colors.bg.getHex(), 0.018);
+    scene.fog = new THREE.Fog(colors.bg.getHex(), 18, 42);
     return () => {
       scene.fog = null;
     };
@@ -233,29 +218,18 @@ function RoadmapSceneContent({ stages, animate }: SceneProps) {
 
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[8, 14, 6]} intensity={1} castShadow={false} />
-      <directionalLight position={[-6, 8, -4]} intensity={0.4} color={colors.accent} />
-      <pointLight position={[0, 8, 4]} intensity={0.65} color={brandColor} />
+      <ambientLight intensity={0.55} />
+      <directionalLight position={[6, 12, 4]} intensity={0.6} castShadow={false} />
+      <directionalLight position={[-4, 6, -8]} intensity={0.2} color={colors.accent} />
 
-      <group position={[0, -0.2, -1]} scale={1.15}>
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
-          <planeGeometry args={[24, 18]} />
-          <meshStandardMaterial
-            color={colors.bg}
-            metalness={0.7}
-            roughness={0.85}
-            transparent
-            opacity={0.25}
-          />
+      <group position={[0, -0.2, -1]} scale={1}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.01, 0]}>
+          <planeGeometry args={[32, 24]} />
+          <meshBasicMaterial color={colors.bg} transparent opacity={0.06} />
         </mesh>
-        <gridHelper
-          args={[20, 24, colors.grid, colors.grid]}
-          position={[0, 0.001, 0]}
-        />
 
-        <PathLine positions={positions} brandColor={brandColor} />
-        <ConnectingRamps positions={positions} colors={colors} brandColor={brandColor} />
+        <PathLine positions={positions} brandMuted={brandMuted} />
+        <ConnectingRamps positions={positions} colors={colors} brandMuted={brandMuted} />
 
         {stages.map((stage, index) => (
           <RoadmapMonolith
@@ -264,7 +238,7 @@ function RoadmapSceneContent({ stages, animate }: SceneProps) {
             index={index}
             status={resolveStageStatus(stage)}
             colors={colors}
-            brandColor={brandColor}
+            brandMuted={brandMuted}
           />
         ))}
       </group>
@@ -274,7 +248,7 @@ function RoadmapSceneContent({ stages, animate }: SceneProps) {
         enableZoom={false}
         enableRotate={false}
         autoRotate={animate && !tabHidden}
-        autoRotateSpeed={0.1}
+        autoRotateSpeed={0.05}
         target={[0, 2, -2]}
       />
     </>
@@ -288,7 +262,7 @@ export default function RoadmapScene({ stages, animate }: SceneProps) {
       style={{ background: "transparent" }}
       gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
       dpr={[1, 1.5]}
-      camera={{ position: [10, 7, 16], fov: 40, near: 0.1, far: 80 }}
+      camera={{ position: [12, 8, 18], fov: 40, near: 0.1, far: 80 }}
     >
       <RoadmapSceneContent stages={stages} animate={animate} />
     </Canvas>

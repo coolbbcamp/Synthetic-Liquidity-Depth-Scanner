@@ -23,6 +23,8 @@ export type Asset = {
   quote_symbol: string | null;
   tier: string;
   latest_score: Score | null;
+  probed_at: string | null;
+  is_probed: boolean;
 };
 
 export type AssetDetail = Asset & {
@@ -71,6 +73,9 @@ export async function fetchLeaderboard(): Promise<LeaderboardEntry[]> {
 
 export async function fetchExitQuote(mint: string, notional: number) {
   const res = await fetch(`${API_URL}/exit-quote?mint=${mint}&notional=${notional}`);
-  if (!res.ok) throw new Error("failed to fetch exit quote");
+  if (!res.ok) {
+    if (res.status === 404) throw new Error("404");
+    throw new Error(`failed to fetch exit quote (${res.status})`);
+  }
   return res.json();
 }

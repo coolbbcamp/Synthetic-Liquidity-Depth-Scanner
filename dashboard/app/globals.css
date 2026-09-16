@@ -510,17 +510,24 @@ a:hover {
   z-index: 1;
   pointer-events: none;
   background:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--bg) 72%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 48%, transparent) 38%,
+      color-mix(in srgb, var(--bg) 18%, transparent) 62%,
+      color-mix(in srgb, var(--bg) 8%, transparent) 100%
+    ),
     radial-gradient(
-      ellipse 90% 70% at 55% 50%,
+      ellipse 95% 80% at 50% 45%,
       transparent 0%,
-      color-mix(in srgb, var(--bg) 6%, transparent) 50%,
-      color-mix(in srgb, var(--bg) 18%, transparent) 100%
+      color-mix(in srgb, var(--bg) 12%, transparent) 55%,
+      color-mix(in srgb, var(--bg) 48%, transparent) 100%
     ),
     linear-gradient(
       to bottom,
-      color-mix(in srgb, var(--bg) 35%, transparent) 0%,
-      color-mix(in srgb, var(--bg) 4%, transparent) 45%,
-      color-mix(in srgb, var(--bg) 22%, transparent) 100%
+      color-mix(in srgb, var(--bg) 42%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 8%, transparent) 42%,
+      color-mix(in srgb, var(--bg) 38%, transparent) 100%
     );
 }
 
@@ -580,7 +587,7 @@ a:hover {
   height: 100%;
   min-height: 40vh;
   padding: 16px 24px;
-  opacity: 0.5;
+  opacity: 0.32;
 }
 
 .roadmap-fallback__svg {
@@ -591,30 +598,36 @@ a:hover {
 .roadmap-fallback__line {
   stroke: var(--hairline);
   stroke-width: 1;
+  opacity: 0.45;
 }
 
 .roadmap-fallback__node {
   fill: var(--muted);
+  opacity: 0.35;
 }
 
 .roadmap-fallback__node--complete {
-  fill: var(--brand);
+  fill: var(--brand-muted);
+  opacity: 0.55;
 }
 
 .roadmap-fallback__node--active {
   fill: var(--accent);
+  opacity: 0.5;
 }
 
 .roadmap-fallback__node--planned {
-  fill: var(--bg);
+  fill: var(--panel);
   stroke: var(--muted);
-  stroke-width: 1.5;
+  stroke-width: 1;
+  opacity: 0.4;
 }
 
 .roadmap-fallback__label {
   fill: var(--muted);
   font-size: 10px;
   font-family: var(--font-body), system-ui, sans-serif;
+  opacity: 0.65;
 }
 
 .roadmap-timeline {
@@ -770,6 +783,284 @@ button:not([type]) {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.calculator-form {
+  display: grid;
+  gap: 12px;
+  max-width: 520px;
+  margin-top: 16px;
+}
+
+.calculator-field {
+  display: grid;
+  gap: 6px;
+}
+
+.calculator-field-hint {
+  font-size: 0.875rem;
+}
+
+.calculator-coverage-note,
+.leaderboard-coverage-note {
+  max-width: 720px;
+  margin-top: 12px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.leaderboard-toolbar {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 0 !important;
+  border-top: none !important;
+}
+
+.leaderboard-search-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.leaderboard-search {
+  flex: 1 1 280px;
+  min-width: 0;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.leaderboard-result-count {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.leaderboard-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+}
+
+.leaderboard-filter {
+  display: grid;
+  gap: 4px;
+  min-width: 130px;
+}
+
+.leaderboard-filter span {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.leaderboard-filter select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.leaderboard-table-wrap {
+  margin-top: 16px;
+  padding: 0 !important;
+  border-top: none !important;
+  overflow-x: auto;
+}
+
+.leaderboard-page h1,
+.leaderboard-page > .muted,
+.leaderboard-toolbar,
+.leaderboard-table-wrap {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.leaderboard-table {
+  min-width: 1100px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 10px 12px;
+  white-space: nowrap;
+}
+
+.leaderboard-table th:first-child,
+.leaderboard-table td:first-child {
+  padding-left: 0;
+}
+
+.leaderboard-table tbody tr.leaderboard-row-probed {
+  background: color-mix(in srgb, var(--ok) 4%, transparent);
+}
+
+.leaderboard-table tbody tr.leaderboard-row-awaiting {
+  color: var(--muted);
+}
+
+.leaderboard-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 6%, var(--panel));
+}
+
+.leaderboard-symbol-link {
+  color: var(--ok);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.leaderboard-symbol-link:hover {
+  text-decoration: underline;
+}
+
+.leaderboard-symbol-muted {
+  color: var(--muted);
+}
+
+.leaderboard-queued-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--muted) 12%, var(--panel));
+  color: var(--muted);
+}
+
+.leaderboard-probed-cell {
+  font-size: 0.8rem;
+}
+
+.leaderboard-empty {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.calculator-asset-picker {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.calculator-asset-group + .calculator-asset-group {
+  border-top: 1px solid var(--hairline);
+}
+
+.calculator-asset-group-label {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 8px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.calculator-asset-group-label.probed {
+  background: color-mix(in srgb, var(--ok) 10%, var(--panel));
+  color: var(--ok);
+}
+
+.calculator-asset-group-label.awaiting {
+  background: color-mix(in srgb, var(--muted) 8%, var(--panel));
+  color: var(--muted);
+}
+
+/* Reset global primary-button styles inside the asset picker */
+.calculator-asset-picker button.calculator-asset-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 9px 12px;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.calculator-asset-picker button.calculator-asset-item:last-child {
+  border-bottom: none;
+}
+
+.calculator-asset-picker button.calculator-asset-item.probed {
+  background: color-mix(in srgb, var(--ok) 5%, var(--panel));
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.calculator-asset-picker button.calculator-asset-item.probed:hover {
+  background: color-mix(in srgb, var(--ok) 12%, var(--panel));
+}
+
+.calculator-asset-picker button.calculator-asset-item.probed.selected {
+  background: color-mix(in srgb, var(--ok) 16%, var(--panel));
+  box-shadow: inset 3px 0 0 var(--ok);
+}
+
+.calculator-asset-picker button.calculator-asset-item.awaiting {
+  background: var(--panel);
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.calculator-asset-picker button.calculator-asset-item.awaiting:hover {
+  background: color-mix(in srgb, var(--muted) 6%, var(--panel));
+  color: var(--text);
+}
+
+.calculator-asset-picker button.calculator-asset-item.awaiting.selected {
+  background: color-mix(in srgb, var(--muted) 10%, var(--panel));
+  color: var(--text);
+  box-shadow: inset 3px 0 0 var(--muted);
+}
+
+.calculator-asset-meta {
+  font-size: 0.78rem;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.calculator-selected-badge {
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+}
+
+.calculator-selected-badge.probed {
+  background: color-mix(in srgb, var(--ok) 10%, var(--panel));
+  color: var(--ok);
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--ok) 25%, var(--hairline));
+}
+
+.calculator-selected-badge.awaiting {
+  background: var(--panel);
+  color: var(--muted);
+  border-color: var(--hairline);
+}
+
+.calculator-awaiting-notice,
+.calculator-result {
+  padding-left: 16px;
+}
+
+.calculator-result {
+  border-left: 3px solid var(--ok);
+}
+
+.calculator-awaiting-notice {
+  color: var(--muted);
+  border-left: 3px solid var(--warning);
 }
 
 .theme-toggle button[type="button"] {
