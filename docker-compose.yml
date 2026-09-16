@@ -21,6 +21,8 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://scanner:scanner@db:5432/liquidity_scanner
       JUP_API_KEY: ${JUP_API_KEY:-}
+      JUP_RPS: ${JUP_RPS:-1}
+      QUOTE_SAMPLES: ${QUOTE_SAMPLES:-1}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     ports:
       - "8000:8000"
@@ -38,6 +40,12 @@ services:
     environment:
       DATABASE_URL: postgresql+asyncpg://scanner:scanner@db:5432/liquidity_scanner
       JUP_API_KEY: ${JUP_API_KEY:-}
+      JUP_RPS: ${JUP_RPS:-1}
+      QUOTE_SAMPLES: ${QUOTE_SAMPLES:-1}
+      TIER_A_REFRESH_MINUTES: ${TIER_A_REFRESH_MINUTES:-30}
+      TIER_B_REFRESH_HOURS: ${TIER_B_REFRESH_HOURS:-2}
+      TIER_C_REFRESH_HOURS: ${TIER_C_REFRESH_HOURS:-12}
+      MAX_TIER_A_LAUNCHES: ${MAX_TIER_A_LAUNCHES:-20}
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
       ENABLE_SCHEDULER: "true"
     depends_on:

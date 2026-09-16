@@ -80,7 +80,9 @@ For the full research findings and methodology, see the dashboard **Why it matte
 - Python 3.11+
 - Node.js 20+ (for dashboard)
 - Docker (for Postgres / full stack)
-- Jupiter API key — recommended for production probing ([developers.jup.ag](https://developers.jup.ag)); free tier works at 1 req/s
+- Jupiter API key (free tier) — [developers.jup.ag](https://developers.jup.ag), **1 request/second**
+
+This MVP is designed for the **free Jupiter API**. Paid tier is not required.
 
 ---
 
@@ -89,7 +91,7 @@ For the full research findings and methodology, see the dashboard **Why it matte
 ```bash
 # 1. Configure environment
 cp .env.example .env
-# Edit .env — set JUP_API_KEY for paid tier (10 RPS) or leave empty for free tier (1 RPS)
+# Edit .env — set JUP_API_KEY (free tier, 1 RPS)
 
 # 2. Start database
 docker compose up -d db
@@ -177,6 +179,20 @@ Set `NEXT_PUBLIC_API_URL` (default `http://localhost:8000`) to point the dashboa
 
 ---
 
+## Free-tier polling strategy
+
+The worker probes **one asset at a time** through a shared token-bucket limiter (`JUP_RPS=1`). Each completed probe writes a new score row to Postgres; the API and dashboard always read the **latest** value, so users see cached data between refresh cycles without hitting Jupiter on every page load.
+
+| Tier | Assets | Refresh interval | Typical API calls/asset |
+|------|--------|------------------|-------------------------|
+| **A** | 24 xStocks + top 20 launches | Every 30 min | ~10 (xStock) / ~24 (launch) |
+| **B** | Next 50 launches | Every 2 hours | ~24 |
+| **C** | Remaining launches | Every 12 hours | ~24 |
+
+The scheduler picks the highest-priority asset whose interval has elapsed and probes it sequentially. When nothing is due, it sleeps and polls again. Cliff bisection (extra quotes) is disabled on free tier to conserve requests; set `ENABLE_CLIFF_BISECTION=true` if you upgrade.
+
+---
+
 ## Configuration
 
 Key environment variables (see [.env.example](.env.example)):
@@ -184,9 +200,14 @@ Key environment variables (see [.env.example](.env.example)):
 | Variable | Default | Purpose |
 |----------|---------|---------|
 | `DATABASE_URL` | `postgresql+asyncpg://scanner:scanner@localhost:5432/liquidity_scanner` | Async Postgres connection |
-| `JUP_API_KEY` | *(empty)* | Jupiter API key; paid tier unlocks higher RPS |
-| `JUP_RPS` | `10` (paid) / `1` (free) | Rate limit for Jupiter requests |
-| `MONTHLY_CREDIT_BUDGET` | `25000000` | Scheduler credit guard (Developer tier = 25M/month) |
+| `JUP_API_KEY` | *(empty)* | Jupiter API key (free tier) |
+| `JUP_RPS` | `1` | Max Jupiter requests per second |
+| `QUOTE_SAMPLES` | `1` | Quotes per ladder rung (1 for free tier) |
+| `TIER_A_REFRESH_MINUTES` | `30` | Min minutes between re-probes for tier A |
+| `TIER_B_REFRESH_HOURS` | `2` | Min hours between re-probes for tier B |
+| `TIER_C_REFRESH_HOURS` | `12` | Min hours between re-probes for tier C |
+| `MAX_TIER_A_LAUNCHES` | `20` | Launch count in tier A (besides xStocks) |
+| `ENABLE_CLIFF_BISECTION` | `false` | Extra quotes to refine routing cliffs |
 | `ENABLE_SCHEDULER` | `true` | Worker scheduler on/off |
 | `LOG_LEVEL` | `INFO` | Structlog level |
 

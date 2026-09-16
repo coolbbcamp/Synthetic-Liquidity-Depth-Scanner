@@ -19,8 +19,16 @@ class Settings(BaseSettings):
     stonkfun_base_url: str = "https://www.stonkfun.xyz/api/public/v1"
     log_level: str = Field(default="INFO", alias="LOG_LEVEL")
     enable_scheduler: bool = Field(default=True, alias="ENABLE_SCHEDULER")
-    jup_rps: float = Field(default=10.0, alias="JUP_RPS")
+    jup_rps: float = Field(default=1.0, alias="JUP_RPS")
+    quote_samples: int = Field(default=1, alias="QUOTE_SAMPLES")
+    enable_cliff_bisection: bool = Field(default=False, alias="ENABLE_CLIFF_BISECTION")
+    enable_credit_budget: bool = Field(default=False, alias="ENABLE_CREDIT_BUDGET")
     monthly_credit_budget: int = Field(default=25_000_000, alias="MONTHLY_CREDIT_BUDGET")
+    tier_a_refresh_minutes: int = Field(default=30, alias="TIER_A_REFRESH_MINUTES")
+    tier_b_refresh_hours: int = Field(default=2, alias="TIER_B_REFRESH_HOURS")
+    tier_c_refresh_hours: int = Field(default=12, alias="TIER_C_REFRESH_HOURS")
+    max_tier_a_launches: int = Field(default=20, alias="MAX_TIER_A_LAUNCHES")
+    probe_poll_seconds: float = Field(default=5.0, alias="PROBE_POLL_SECONDS")
     user_agent: str = "LiquidityDepthScanner/0.1"
     baseline_notional_usd: float = 200.0
     ladder_notionals_usd: list[float] = Field(
